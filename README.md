@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a31b8b8f-a0ff-45b2-ba5a-0494c932877a" /># 🎨 AI-Powered Skin Tone Classification & Fashion Color Recommendation System
+# 🎨 AI-Powered Skin Tone Classification & Fashion Color Recommendation System
 
 An intelligent machine learning system that analyzes skin tone shades and recommends personalized clothing color palettes using color theory and data-driven classification.
 
