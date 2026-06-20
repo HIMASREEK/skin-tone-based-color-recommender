@@ -16,9 +16,9 @@ from image_processor import ImageProcessor
 # Initialize FastAPI app
 # -------------------------------
 app = FastAPI(
-    title="Dvaltor Fashion Recommendation API",
-    description="Detect faces, analyze skin tone, and get color recommendations.",
-    version="2.0.0"
+    title="AI Fashion Color Advisor API",
+    description="AI-based skin tone analysis and personalized outfit color recommendation system.",
+    version="1.0.0"
 )
 
 # -------------------------------
@@ -26,7 +26,7 @@ app = FastAPI(
 # -------------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*", "https://dvaltor.com", "https://app.dvaltor.com"],
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
