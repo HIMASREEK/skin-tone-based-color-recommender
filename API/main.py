@@ -11,7 +11,12 @@ import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances
 from typing import List, Dict
 from image_processor import ImageProcessor
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent
+
+prototxt_path = str(BASE_DIR / "Models" / "deploy.prototxt.txt")
+model_path = str(BASE_DIR / "Models" / "res10_300x300_ssd_iter_140000.caffemodel")
 # -------------------------------
 # Initialize FastAPI app
 # -------------------------------
@@ -41,8 +46,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # -------------------------------
 # Load DNN face detection model
 # -------------------------------
-prototxt_path = "./Models/deploy.prototxt.txt"
-model_path = "./Models/res10_300x300_ssd_iter_140000.caffemodel"
 
 if not os.path.exists(prototxt_path) or not os.path.exists(model_path):
     raise RuntimeError("Face detection model files missing.")
@@ -53,7 +56,7 @@ net = cv2.dnn.readNetFromCaffe(prototxt_path, model_path)
 # Load skin tone recommendation CSV
 # -------------------------------
 try:
-    df_recommendations = pd.read_csv("./Dataset/skin_tone_recommendations.csv")
+    df_recommendations = pd.read_csv(str(BASE_DIR / "Dataset" / "skin_tone_recommendations.csv"))
 except FileNotFoundError:
     raise RuntimeError("CSV file missing in './Dataset/'.")
 
@@ -129,10 +132,11 @@ def get_recommendation_json(avg_rgb_color: List[int]) -> Dict:
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
-        request=request,
-        name="index.html"
+        "index.html",
+        {
+            "request": request
+        }
     )
-
 # -------------------------------
 # Main Analyze Endpoint
 # -------------------------------
